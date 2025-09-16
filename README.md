@@ -10,7 +10,7 @@ Cloniamo il branch ROS 2 del pacchetto:
 
 ```bash
 cd ~/esn_ws/src
-git clone -b ros2 https://github.com/ros/urdf_tutorial.git
+git clone https://github.com/ros/urdf_tutorial.git -b ros2
 ```
 
 ## 2. Compilare il pacchetto

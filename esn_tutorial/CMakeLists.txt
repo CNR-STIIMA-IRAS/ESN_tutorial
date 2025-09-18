@@ -15,6 +15,7 @@ find_package(esn_msgs REQUIRED)
 # Dichiara una libreria C++
 add_library(${PROJECT_NAME} SHARED
             src/limit_switch.cpp
+            src/vision_srv_server.cpp
  )
 
 # Importa le cartelle "include" nella libreria
@@ -23,17 +24,20 @@ add_library(${PROJECT_NAME} SHARED
    $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
 
 # Definisci le dipendenze della libreria per la compilazione
- ament_target_dependencies(${PROJECT_NAME} PUBLIC rclcpp esn_msgs)
+ ament_target_dependencies(${PROJECT_NAME} PUBLIC rclcpp esn_msgs geometry_msgs)
 
 # Rendi la libreria visibile e importabile da altri pacchetti
  ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
 
 # Definisci le dipendenze del tuo pacchetto per i pacchetti esterni che lo utilizzeranno
- ament_export_dependencies(rclcpp esn_msgs)
+ ament_export_dependencies(rclcpp esn_msgs geometry_msgs)
 
  # Definizione eseguibili
 add_executable(limit_switch_node src/limit_switch_node.cpp)
 target_link_libraries(limit_switch_node ${PROJECT_NAME})
+
+add_executable(vision_srv_server_node src/vision_srv_server_node.cpp)
+target_link_libraries(vision_srv_server_node ${PROJECT_NAME})
 
 # Installa librerei ed eseguibili
 install(TARGETS ${PROJECT_NAME}
@@ -44,13 +48,16 @@ install(TARGETS ${PROJECT_NAME}
  INCLUDES DESTINATION include
 )
 
-install(TARGETS limit_switch_node
+install(TARGETS limit_switch_node vision_srv_server_node
     DESTINATION lib/${PROJECT_NAME})
 
 install(
  DIRECTORY include/
- DESTINATION include/${PROJECT_NAME}
+ DESTINATION include/
 )
+
+install(DIRECTORY config
+    DESTINATION share/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

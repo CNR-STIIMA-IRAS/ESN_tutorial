@@ -1,0 +1,8 @@
+robot_action_node:
+  ros__parameters:
+    action_name: "prendi_oggetto"
+    motion_duration: 3.0
+    initial_x: 0.0
+    initial_y: 0.0
+    
+

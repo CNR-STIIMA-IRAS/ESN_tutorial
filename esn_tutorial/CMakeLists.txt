@@ -10,12 +10,14 @@ endif()
 # Trova le dipendenze
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
 find_package(esn_msgs REQUIRED)
 
 # Dichiara una libreria C++
 add_library(${PROJECT_NAME} SHARED
             src/limit_switch.cpp
             src/vision_srv_server.cpp
+            src/robot_action_server.cpp
  )
 
 # Importa le cartelle "include" nella libreria
@@ -24,22 +26,25 @@ add_library(${PROJECT_NAME} SHARED
    $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
 
 # Definisci le dipendenze della libreria per la compilazione
- ament_target_dependencies(${PROJECT_NAME} PUBLIC rclcpp esn_msgs geometry_msgs)
+ ament_target_dependencies(${PROJECT_NAME} PUBLIC rclcpp rclcpp_action esn_msgs geometry_msgs)
 
 # Rendi la libreria visibile e importabile da altri pacchetti
  ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
 
 # Definisci le dipendenze del tuo pacchetto per i pacchetti esterni che lo utilizzeranno
- ament_export_dependencies(rclcpp esn_msgs geometry_msgs)
+ ament_export_dependencies(rclcpp rclcpp_action esn_msgs geometry_msgs)
 
- # Definizione eseguibili
+# Definizione eseguibili
 add_executable(limit_switch_node src/limit_switch_node.cpp)
 target_link_libraries(limit_switch_node ${PROJECT_NAME})
 
 add_executable(vision_srv_server_node src/vision_srv_server_node.cpp)
 target_link_libraries(vision_srv_server_node ${PROJECT_NAME})
 
-# Installa librerei ed eseguibili
+add_executable(robot_action_server_node src/robot_action_server_node.cpp)
+target_link_libraries(robot_action_server_node ${PROJECT_NAME})
+
+# Installa librerie ed eseguibili
 install(TARGETS ${PROJECT_NAME}
  EXPORT export_${PROJECT_NAME}
  ARCHIVE DESTINATION lib
@@ -48,7 +53,7 @@ install(TARGETS ${PROJECT_NAME}
  INCLUDES DESTINATION include
 )
 
-install(TARGETS limit_switch_node vision_srv_server_node
+install(TARGETS limit_switch_node vision_srv_server_node robot_action_server_node
     DESTINATION lib/${PROJECT_NAME})
 
 install(

@@ -1,0 +1,4 @@
+/limit_switch_node:
+  ros__parameters:
+    delta_time: 5.0
+    topic_name: "oggetto_arrivato"

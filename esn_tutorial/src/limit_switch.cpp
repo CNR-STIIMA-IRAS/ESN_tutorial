@@ -5,7 +5,7 @@ namespace esn{
 LimitSwitch::LimitSwitch() : Node("limit_switch_node")
 {
     // Leggi i parametri
-    this->declare_parameter("topic_name", "/object_arrived");
+    this->declare_parameter("topic_name", "object_arrived");
     std::string topic_name = this->get_parameter("topic_name").as_string();
 
     this->declare_parameter("delta_time", 10.0);
@@ -18,6 +18,8 @@ LimitSwitch::LimitSwitch() : Node("limit_switch_node")
         std::chrono::milliseconds(1000),
         std::bind(&LimitSwitch::timer_callback, this)
         );
+
+    RCLCPP_INFO_STREAM(this->get_logger(),"The limit switch will be triggered every "<<this->delta_t_<<" seconds");
 }
 
 void LimitSwitch::timer_callback()

@@ -1,12 +1,43 @@
+
+## 📚 Useful resources
+
+- **ROS 2 Cheat Sheet (Jazzy)**  
+  [Download PDF](https://s3.amazonaws.com/assets.clearpathrobotics.com/wp-content/uploads/2025/02/06151220/ROS-2-Cheat-Sheet_Jazzy_FINAL.pdf)
+
+- **Git Cheat Sheet (GitHub)**  
+  [Download PDF](https://education.github.com/git-cheat-sheet-education.pdf)
+
+- **Git Cheat Sheet (GitLab)**  
+  [Download PDF](https://about.gitlab.com/images/press/git-cheat-sheet.pdf)
+
+
 # Settings utili
 
+0. Installazione Vscode:
+```bash
+sudo snap install code --classic
+```
+
 1. Configurazione git 
+
+Impostazioni Git: Se avete repository privati dovrete creare un token e usarlo come password quando farete git clone. Comandi che potrebbero servire:
+
+```bash
+git config --global credential.helper store # Salvare le credenziali che verranno inserite successivamente
+git config --global user.name "name"
+git config --global user.email "email"
+```
 
 Per vedere differenza tra file è comodo usare Meld. Meld è un’applicazione grafica (GUI) per confrontare file e directory. 
 
 ```bash
 sudo apt install meld
 git config --global diff.tool meld
+```
+
+2. Rqt plugin vari: 
+```bash
+sudo apt install ros-jazzy-rqt*
 ```
 
 # Lezione 1

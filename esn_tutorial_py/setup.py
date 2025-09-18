@@ -21,6 +21,9 @@ setup(
     entry_points={
         'console_scripts': [
             'limit_switch_node = esn_tutorial_py.limit_switch_node:main',
+            'vision_system_node = esn_tutorial_py.vision_system_node:main',
+            # 'robot_action_server = esn_tutorial_py.robot_action_server:main',
+            'test_node = esn_tutorial_py.test_node:main',
         ],
     },
 )

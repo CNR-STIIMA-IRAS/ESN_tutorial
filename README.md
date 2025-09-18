@@ -1,3 +1,17 @@
+# Settings utili
+
+1. Configurazione git 
+
+Per vedere differenza tra file è comodo usare Meld. Meld è un’applicazione grafica (GUI) per confrontare file e directory. 
+
+```bash
+sudo apt install meld
+git config --global diff.tool meld
+```
+
+# Lezione 1
+
+
 # Lezione 2 - Introduzione agli URDF in ROS 2
 
 In questa lezione useremo il pacchetto `urdf_tutorial` come base di esempio per comprendere i file URDF e visualizzarli in ROS 2.

@@ -4,6 +4,9 @@
 - **ROS 2 Cheat Sheet (Jazzy)**  
   [Download PDF](https://s3.amazonaws.com/assets.clearpathrobotics.com/wp-content/uploads/2025/02/06151220/ROS-2-Cheat-Sheet_Jazzy_FINAL.pdf)
 
+- **Uso di Git/Github**  
+  [Download PDF](https://people.cs.dm.unipi.it/limco/2021-22/slides/04-GitHub.pdf)
+
 - **Git Cheat Sheet (GitHub)**  
   [Download PDF](https://education.github.com/git-cheat-sheet-education.pdf)
 

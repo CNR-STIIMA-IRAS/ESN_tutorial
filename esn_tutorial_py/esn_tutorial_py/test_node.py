@@ -42,10 +42,10 @@ def main():
 
     node = DualSubNode()
 
-    # if args.multi:
-    execu = MultiThreadedExecutor(num_threads=2)
-    # else:
-    #     execu = SingleThreadedExecutor()
+    if args.multi:
+        execu = MultiThreadedExecutor(num_threads=2)
+    else:
+        execu = SingleThreadedExecutor()
 
     execu.add_node(node)
     try:

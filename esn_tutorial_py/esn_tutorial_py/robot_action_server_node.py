@@ -1,10 +1,12 @@
+#!/usr/bin/env python3
+
 import rclpy
-from esn_tutorial_py.vision_server import VisionSystem
+from esn_tutorial_py.robot_action_server import RobotActionServer
+
 
 def main(args=None):
     rclpy.init(args=args)
-    node = VisionSystem()
-
+    node = RobotActionServer()
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
@@ -13,3 +15,7 @@ def main(args=None):
         node.destroy_node()
         if rclpy.ok():
             rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()

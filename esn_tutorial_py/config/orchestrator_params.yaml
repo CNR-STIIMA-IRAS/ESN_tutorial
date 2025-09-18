@@ -1,0 +1,8 @@
+orchestrator_node:
+  ros__parameters:
+    object_id: "red_box"
+    topic_name: "oggetto_arrivato"
+    service_name: "riconosci_oggetto"
+    action_name: "prendi_oggetto"
+
+

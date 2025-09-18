@@ -9,7 +9,7 @@ from esn_msgs.srv import DetectObject
 
 class VisionSystem(Node):
     def __init__(self):
-        super().__init__('vision_srv_server_node')
+        super().__init__('vision_server_node')
 
         # RNG (seed di default dal sistema)
         self.__rng = random.Random()

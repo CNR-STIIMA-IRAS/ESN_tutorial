@@ -1,15 +1,21 @@
 import rclpy
-from esn_tutorial_py.vision_server import VisionSystem
+from esn_tutorial_py.orchestrator import Orchestrator
+
 
 def main(args=None):
     rclpy.init(args=args)
-    node = VisionSystem()
-
+    node = Orchestrator()
+    
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
-        pass
+        node.get_logger().info("User interrupted with Ctrl+C")
     finally:
         node.destroy_node()
         if rclpy.ok():
             rclpy.shutdown()
+
+
+
+if __name__ == '__main__':
+    main()

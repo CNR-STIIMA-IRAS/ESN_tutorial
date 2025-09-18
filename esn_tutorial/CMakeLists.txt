@@ -18,6 +18,7 @@ add_library(${PROJECT_NAME} SHARED
             src/limit_switch.cpp
             src/vision_srv_server.cpp
             src/robot_action_server.cpp
+            src/orchestrator.cpp
  )
 
 # Importa le cartelle "include" nella libreria
@@ -44,6 +45,9 @@ target_link_libraries(vision_srv_server_node ${PROJECT_NAME})
 add_executable(robot_action_server_node src/robot_action_server_node.cpp)
 target_link_libraries(robot_action_server_node ${PROJECT_NAME})
 
+add_executable(orchestrator_node src/orchestrator_node.cpp)
+target_link_libraries(orchestrator_node ${PROJECT_NAME})
+
 # Installa librerie ed eseguibili
 install(TARGETS ${PROJECT_NAME}
  EXPORT export_${PROJECT_NAME}
@@ -53,7 +57,7 @@ install(TARGETS ${PROJECT_NAME}
  INCLUDES DESTINATION include
 )
 
-install(TARGETS limit_switch_node vision_srv_server_node robot_action_server_node
+install(TARGETS limit_switch_node vision_srv_server_node robot_action_server_node orchestrator_node
     DESTINATION lib/${PROJECT_NAME})
 
 install(
@@ -61,7 +65,7 @@ install(
  DESTINATION include/
 )
 
-install(DIRECTORY config
+install(DIRECTORY config launch
     DESTINATION share/${PROJECT_NAME})
 
 if(BUILD_TESTING)

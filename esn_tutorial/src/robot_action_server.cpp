@@ -37,8 +37,7 @@ rclcpp_action::GoalResponse RobotAction::handle_goal(
         this->get_logger(),
         "Received goal pose [" << goal->pose.header.frame_id << "] "
                                << "pos=(" << goal->pose.pose.position.x << ", "
-                               << goal->pose.pose.position.y << ", "
-                               << goal->pose.pose.position.z << ")"
+                               << goal->pose.pose.position.y << ")"
         );
     return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
 }

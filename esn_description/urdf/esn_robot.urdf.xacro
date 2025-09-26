@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<robot name="esn_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="prefix" default=""/>
+  <xacro:include filename="$(find esn_description)/urdf/esn_robot_base.xacro"/>
+  
+  
+  <xacro:property name="scanner_xyz" value="0.1 0.0 0.11"/> <!-- front-top, quasi a filo -->
+  <xacro:property name="scanner_rpy" value="0 0 0"/>
+  <xacro:property name="prefix" value=""/>
+  
+  <xacro:esn_robot prefix="${prefix}"/>
+
+  <!-- ====== nanoScan3 via macro SICK ====== -->
+  <!-- Include del macro ufficiale -->
+  <xacro:include filename="$(find sick_safetyscanners2)/description/urdf/nanoscan3/nanoscan3_macro.xacro"/>
+
+  <link name="${prefix}laser_mount_link"/>
+
+  <!-- Fisso alla base_link -->
+  <joint name="${prefix}laser_mount_joint" type="fixed">
+    <parent link="${prefix}base_link"/>
+    <child link="${prefix}laser_mount_link"/>
+    <origin xyz="${scanner_xyz}" rpy="${scanner_rpy}"/>
+  </joint>
+
+  <!-- Istanzia lo scanner e fissalo alla base.
+       Puoi cambiare mounting_kit / ros_topic / range/angoli come vuoi. -->
+  <xacro:nanoscan3 name="nanoscan3" parent="${prefix}laser_mount_link"
+                   mounting_kit="true"
+                   ros_topic="/nanoscan3/scan"
+                   update_rate="50.0"
+                   min_angle="${radians(-45)}"
+                   max_angle="${radians(225)}"
+                   min_range="0.05"
+                   max_range="10.0"
+                   gaussian_noise="0.006"
+                   max_beams="500">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:nanoscan3>
+
+</robot>

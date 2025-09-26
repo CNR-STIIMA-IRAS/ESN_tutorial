@@ -43,6 +43,11 @@ git config --global diff.tool meld
 sudo apt install ros-jazzy-rqt*
 ```
 
+3. Rosdep:
+```bash
+rosdep install --from-paths src --ignore-src -r -y
+```
+
 # Lezione 1
 
 

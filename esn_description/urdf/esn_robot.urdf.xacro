@@ -2,12 +2,15 @@
 <robot name="esn_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:arg name="prefix" default=""/>
+  <xacro:arg name="use_fake_hardware" default="true"/>
+  
   <xacro:include filename="$(find esn_description)/urdf/esn_robot_base.xacro"/>
   
   
   <xacro:property name="scanner_xyz" value="0.1 0.0 0.11"/> <!-- front-top, quasi a filo -->
   <xacro:property name="scanner_rpy" value="0 0 0"/>
-  <xacro:property name="prefix" value=""/>
+  <xacro:property name="prefix" value="$(arg prefix)"/>
+  <xacro:property name="use_fake_hardware" value="$(arg use_fake_hardware)"/>
   
   <xacro:esn_robot prefix="${prefix}"/>
 
@@ -38,5 +41,9 @@
                    max_beams="500">
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </xacro:nanoscan3>
+
+  <!-- Tag ros2 control -->
+  <xacro:include filename="$(find esn_description)/urdf/esn_ros2_control.xacro"/>
+  <xacro:esn_ros2_control use_fake_hardware="${use_fake_hardware}" name="esn_robot" prefix="${prefix}"/>
 
 </robot>

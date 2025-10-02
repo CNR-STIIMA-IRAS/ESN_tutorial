@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:macro name="esn_ros2_control" params="use_fake_hardware:=true name:=esn_robot prefix:=''">
 
-    <ros2_control name="${name}" type="system">
+    <ros2_control name="${name}_left" type="system">
       <hardware>
         <!-- A prescindere questo giunto è simulato -->
         <plugin>mock_components/GenericSystem</plugin>
@@ -21,6 +21,9 @@
           </state_interface>
         </joint>
       </hardware>
+    </ros2_control>
+    <ros2_control name="${name}_right" type="system">
+
       <hardware>
         <xacro:if value="${use_fake_hardware}">
           <plugin>mock_components/GenericSystem</plugin>
@@ -32,28 +35,31 @@
           <param name="master_id">${master_id}</param>
           <param name="control_frequency">1000</param>
         </xacro:unless>
+
+        <joint name="${prefix}wheel_right_joint">
+          <command_interface name="position"/>
+          <command_interface name="velocity"/>
+          <state_interface name="position">
+            <param name="initial_value">0.0</param>
+          </state_interface>
+          <state_interface name="velocity">
+            <param name="initial_value">0.0</param>
+          </state_interface>
+          <state_interface name="effort">
+            <param name="initial_value">0.0</param>
+          </state_interface>
+          <xacro:unless value="${use_fake_hardware}">
+            <ec_module name="${prefix}wheel_right_joint">
+              <plugin>ethercat_generic_plugins/EcCiA402Drive</plugin>
+              <param name="alias">0</param>
+              <param name="position">0</param>
+              <param name="mode_of_operation">9</param>
+              <param name="slave_config">$(find esn_description)/config/el7211_config.yaml</param>
+            </ec_module>
+          </xacro:unless>
+
+        </joint>
       </hardware>
-
-      <joint name="${prefix}wheel_right_joint">
-        <command_interface name="position"/>
-        <command_interface name="velocity"/>
-        <state_interface name="position">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-        <state_interface name="velocity">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-        <state_interface name="effort">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-
-        <ec_module name="${prefix}wheel_right_joint">
-          <plugin>ethercat_generic_plugins/GenericEcSlave</plugin>
-          <param name="alias">0</param>
-          <param name="position">0</param>
-          <param name="slave_config">$(find esn_description)/config/el7211_config.yaml</param>
-        </ec_module>
-      </joint>
     </ros2_control>
   </xacro:macro>
 

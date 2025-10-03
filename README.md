@@ -43,6 +43,16 @@ git config --global diff.tool meld
 sudo apt install ros-jazzy-rqt*
 ```
 
+3. Installare teleop twist keyboard:
+```bash
+sudo apt install ros-jazzy-teleop-twist-keyboard
+```
+Per pubblicare un cmd_vel:
+```bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap cmd_vel:=/diff_drive_controller/cmd_vel -p stamped:=true
+```
+
+   
 # Lezione 1
 
 

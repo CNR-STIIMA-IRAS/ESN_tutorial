@@ -1,19 +1,26 @@
 # Configuration file for Beckhoff EL1008
 vendor_id: 0x00000002            # Beckhoff
-product_id: 0x1c2b3052           # from ProductCode=472592466
+product_id: 0x1C2B3052           # from ProductCode=472592466
+assign_activate: 0x700  # DC Synch register
+auto_fault_reset: true
+
 tpdo:  # TxPDO
-  - index: 0x1a00
+  - index: 0x1A00
     channels:
-      - {index: 0x6000, sub_index: 17, type: uint32, state_interface: position}
-  - index: 0x1a01
+      - {index: 0x6000, sub_index: 0x11, type: uint32, state_interface: position, factor: 0.00001}
+  - index: 0x1A01
     channels:
-      - {index: 0x6010, sub_index: 1, type: uint16, state_interface: statusword}
-  - index: 0x1a02
+      - {index: 0x6010, sub_index: 0x01, type: uint16, state_interface: status_word}
+  - index: 0x1A02
     channels:
-      - {index: 0x6010, sub_index: 7, type: int32, state_interface: velocity}
-  - index: 0x1a03
+      - {index: 0x6010, sub_index: 0x07, type: int32, state_interface: velocity, factor: 0.00001}
+  - index: 0x1A0E
     channels:
-      - {index: 0x6010, sub_index: 8, type: int16, state_interface: torque}
+      - {index: 0x6010, sub_index: 0x03, type: uint8, state_interface: mode_of_operation}
+
+  # - index: 0x1a03
+  #   channels:
+  #     - {index: 0x6010, sub_index: 8, type: int16, state_interface: torque}
   # - index: 0x1a04
   #   channels:
   #     - {index: 0x6010, sub_index: 18, type: uint16, state_interface: info_data_1}
@@ -28,15 +35,15 @@ tpdo:  # TxPDO
 rpdo:
   - index: 0x1600
     channels:
-      - {index: 0x7010, sub_index: 1, type: uint16, command_interface: controlword}
+      - {index: 0x7010, sub_index: 0x01, type: uint16, command_interface: control_word}
 
   - index: 0x1601
     channels:
-      - {index: 0x7010, sub_index: 6, type: int32, command_interface: target_velocity}
+      - {index: 0x7010, sub_index: 0x06, type: int32, command_interface: velocity, factor: 100000000}
 
-  - index: 0x1602
-    channels:
-      - {index: 0x7010, sub_index: 9, type: int16, command_interface: target_torque}
+  # - index: 0x1602
+  #   channels:
+  #     - {index: 0x7010, sub_index: 9, type: int16, command_interface: torque}
 
   # - index: 0x1603
   #   channels:
@@ -52,16 +59,18 @@ rpdo:
   #   channels:
   #     - {index: 0x7010, sub_index: 10, type: int16, command_interface: torque_offset}
 
-  - index: 0x1606
-    channels:
-      - {index: 0x7010, sub_index: 5, type: uint32, command_interface: target_position}
+  # - index: 0x1606
+  #   channels:
+  #     - {index: 0x7010, sub_index: 5, type: uint32, command_interface: target_position}
 
 
-  - index: 0x1608
-    channels:
-      - {index: 0x7010, sub_index: 3, type: uint8, command_interface: modes_of_operation}
+  # - index: 0x1608
+  #   channels:
+  #     - {index: 0x7010, sub_index: 3, type: uint8, command_interface: modes_of_operation}
 
 # Sync Manager
 sm:
-  - {index: 2, type: output, pdo: rpdo, watchdog: enable}   # RxPDO -> SM2 (Outputs)
-  - {index: 3, type: input,  pdo: tpdo, watchdog: enable}   # TxPDO -> SM3 (Inputs)
+  - {index: 0, type: output, pdo: ~, watchdog: disable}  # SM0: Mailbox
+  - {index: 1, type: input,  pdo: ~, watchdog: disable}  # SM1: unused input
+  - {index: 2, type: output, pdo: rpdo, watchdog: enable} # SM2: RPDO
+  - {index: 3, type: input,  pdo: tpdo, watchdog: enable} # SM3: TPDO

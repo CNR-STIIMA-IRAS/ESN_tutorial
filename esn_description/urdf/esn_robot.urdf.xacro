@@ -16,7 +16,7 @@
 
   <!-- ====== nanoScan3 via macro SICK ====== -->
   <!-- Include del macro ufficiale -->
-  <xacro:include filename="$(find sick_safetyscanners2)/description/urdf/nanoscan3/nanoscan3_macro.xacro"/>
+  <!-- <xacro:include filename="$(find sick_safetyscanners2)/description/urdf/nanoscan3/nanoscan3_macro.xacro"/> -->
 
   <link name="${prefix}laser_mount_link"/>
 
@@ -29,7 +29,7 @@
 
   <!-- Istanzia lo scanner e fissalo alla base.
        Puoi cambiare mounting_kit / ros_topic / range/angoli come vuoi. -->
-  <xacro:nanoscan3 name="nanoscan3" parent="${prefix}laser_mount_link"
+  <!-- <xacro:nanoscan3 name="nanoscan3" parent="${prefix}laser_mount_link"
                    mounting_kit="true"
                    ros_topic="/nanoscan3/scan"
                    update_rate="50.0"
@@ -40,7 +40,7 @@
                    gaussian_noise="0.006"
                    max_beams="500">
     <origin xyz="0 0 0" rpy="0 0 0"/>
-  </xacro:nanoscan3>
+  </xacro:nanoscan3> -->
 
   <!-- Tag ros2 control -->
   <xacro:include filename="$(find esn_description)/urdf/esn_ros2_control.xacro"/>

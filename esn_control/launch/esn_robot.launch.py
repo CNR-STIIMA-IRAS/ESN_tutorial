@@ -101,10 +101,19 @@ def launch_setup(context):
                 "/controller_manager"],
   )
 
+  state_controller = Node(
+    package="controller_manager",
+    executable="spawner",
+    arguments=["state_controller",
+                "--controller-manager",
+                "/controller_manager"],
+    condition=UnlessCondition(LaunchConfiguration('use_fake_hardware'))
+  )
   return [
     robot_state_publisher,
     rviz_node,
     control_node,
     joint_state_broadcaster_spawner,
-    diff_drive_spawner
+    diff_drive_spawner, 
+    state_controller
   ]

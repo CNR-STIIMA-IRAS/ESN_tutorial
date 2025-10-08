@@ -34,13 +34,16 @@
         <xacro:unless value="${use_fake_hardware}">
           <plugin>ethercat_driver/EthercatDriver</plugin>
           <param name="master_id">${master_id}</param>
-          <param name="control_frequency">1000</param>
+          <param name="control_frequency">100</param>
         </xacro:unless>
       </hardware>
 
         <joint name="${prefix}wheel_right_joint">
           <command_interface name="position"/>
           <command_interface name="velocity"/>
+          <command_interface name="reset_fault"/>
+          <command_interface name="control_word"/>
+          <command_interface name="mode_of_operation"/>
           <state_interface name="position">
             <param name="initial_value">0.0</param>
           </state_interface>
@@ -50,13 +53,15 @@
           <state_interface name="effort">
             <param name="initial_value">0.0</param>
           </state_interface>
+          <state_interface name="mode_of_operation"/>
+          <state_interface name="status_word"/>
           <xacro:unless value="${use_fake_hardware}">
             <ec_module name="${prefix}wheel_right_joint">
               <plugin>ethercat_generic_plugins/EcCiA402Drive</plugin>
               <param name="alias">0</param>
-              <param name="position">0</param>
+              <param name="position">1</param>
               <param name="mode_of_operation">9</param>
-              <param name="slave_config">$(find esn_description)/config/el7211_config.yaml</param>
+              <param name="slave_config">$(find esn_description)/config/ethercat/el7211_config.yaml</param>
             </ec_module>
           </xacro:unless>
         </joint>

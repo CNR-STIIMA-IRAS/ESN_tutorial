@@ -7,6 +7,7 @@
         <!-- A prescindere questo giunto è simulato -->
         <plugin>mock_components/GenericSystem</plugin>
         <param name="mock_sensor_commands">true</param>
+        <param name="calculate_dynamics">true</param>
       </hardware>
 
       <joint name="${prefix}wheel_left_joint">
@@ -29,6 +30,7 @@
         <xacro:if value="${use_fake_hardware}">
           <plugin>mock_components/GenericSystem</plugin>
           <param name="mock_sensor_commands">true</param>
+          <param name="calculate_dynamics">true</param>
         </xacro:if>
         <!-- Caso con hardware reale: ETHERCAT -->
         <xacro:unless value="${use_fake_hardware}">

@@ -13,9 +13,9 @@ joint_state_broadcaster:
     joints:
       - wheel_left_joint
       - wheel_right_joint
-    interfaces:
-      - position
-      - velocity
+    # interfaces:
+    #   - position
+    #   - velocity
 
 
 diff_drive_controller:

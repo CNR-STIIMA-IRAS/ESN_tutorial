@@ -52,9 +52,9 @@
           <state_interface name="velocity">
             <param name="initial_value">0.0</param>
           </state_interface>
-          <state_interface name="effort">
+          <!-- <state_interface name="effort">
             <param name="initial_value">0.0</param>
-          </state_interface>
+          </state_interface> -->
           <state_interface name="mode_of_operation"/>
           <state_interface name="status_word"/>
           <xacro:unless value="${use_fake_hardware}">
@@ -62,7 +62,9 @@
               <plugin>ethercat_generic_plugins/EcCiA402Drive</plugin>
               <param name="alias">0</param>
               <param name="position">1</param>
-              <param name="mode_of_operation">9</param>
+              <param name="mode_of_operation">9</param> 
+              <!-- <param name="slave_config">$(find esn_description)/config/ethercat/EL7201_ethercat_config.yaml</param> -->
+
               <param name="slave_config">$(find esn_description)/config/ethercat/el7211_config.yaml</param>
             </ec_module>
           </xacro:unless>

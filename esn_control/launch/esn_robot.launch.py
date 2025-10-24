@@ -109,11 +109,31 @@ def launch_setup(context):
                 "/controller_manager"],
     condition=UnlessCondition(LaunchConfiguration('use_fake_hardware'))
   )
+
+
+  velocity_controller = Node(
+    package="controller_manager",
+    executable="spawner",
+    arguments=["velocity_controller",
+                "--controller-manager",
+                "/controller_manager", "--inactive"],
+  )
+
+  position_controller = Node(
+    package="controller_manager",
+    executable="spawner",
+    arguments=["position_controller",
+                "--controller-manager",
+                "/controller_manager", "--inactive"],
+  )
+
   return [
     robot_state_publisher,
     rviz_node,
     control_node,
     joint_state_broadcaster_spawner,
     diff_drive_spawner, 
-    state_controller
+    state_controller,
+    velocity_controller,
+    position_controller
   ]

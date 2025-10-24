@@ -8,19 +8,35 @@ controller_manager:
     diff_drive_controller:
       type: diff_drive_controller/DiffDriveController
 
+    velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
 
+    position_controller:
+      type: position_controllers/JointGroupPositionController
+    
     state_controller:
       type: ethercat_controllers/CiA402Controller
 
+velocity_controller:
+  ros__parameters:
+    joints:
+      - wheel_right_joint
+      - wheel_left_joint
+
+position_controller:
+  ros__parameters:
+    joints:
+      - wheel_right_joint
+      - wheel_left_joint
 
 joint_state_broadcaster:
   ros__parameters:
     joints:
       - wheel_left_joint
       - wheel_right_joint
-    interfaces:
-      - position
-      - velocity
+    # interfaces:
+    #   - position
+    #   - velocity
 
 
 diff_drive_controller:

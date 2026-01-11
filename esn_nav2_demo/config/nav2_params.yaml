@@ -52,6 +52,7 @@ bt_navigator:
       plugin: "nav2_bt_navigator::NavigateToPoseNavigator"
     navigate_through_poses:
       plugin: "nav2_bt_navigator::NavigateThroughPosesNavigator"
+    # default_nav_to_pose_bt_xml: "$(find-pkg-share esn_nav2_demo)/xml/navigate_to_pose_w_recovery_example.xml"
     # 'default_nav_through_poses_bt_xml' and 'default_nav_to_pose_bt_xml' are use defaults:
     # nav2_bt_navigator/navigate_to_pose_w_replanning_and_recovery.xml
     # nav2_bt_navigator/navigate_through_poses_w_replanning_and_recovery.xml
@@ -542,7 +543,8 @@ collision_monitor:
     stop_pub_timeout: 2.0
     # Polygons represent zone around the robot for "stop", "slowdown" and "limit" action types,
     # and robot footprint for "approach" action type.
-    polygons: ["FootprintApproach"]
+    #polygons: ["FootprintApproach"]
+    polygons: ["PolygonStop", "PolygonSlow"]
     FootprintApproach:
       type: "polygon"
       action_type: "approach"
@@ -550,7 +552,26 @@ collision_monitor:
       time_before_collision: 1.2
       simulation_time_step: 0.1
       min_points: 6
-      visualize: False
+      visualize: True
+      enabled: True
+    PolygonStop:
+      type: "circle"
+      radius: 0.3
+      action_type: "stop"
+      min_points: 4  # max_points: 3 for Humble
+      visualize: True
+      polygon_pub_topic: "polygon_stop"
+      enabled: True
+    PolygonSlow:
+      #type: "polygon"
+      #points: "[[1.0, 1.0], [1.0, -1.0], [-0.5, -1.0], [-0.5, 1.0]]"
+      type: "circle"
+      radius: 0.4
+      action_type: "slowdown"
+      min_points: 4  # max_points: 3 for Humble
+      slowdown_ratio: 0.3
+      visualize: True
+      polygon_pub_topic: "polygon_slowdown"
       enabled: True
     observation_sources: ["scan"]
     scan:
